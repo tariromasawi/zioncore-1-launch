@@ -1,0 +1,35 @@
+kind = "web"
+previewPath = "/zioncore-2nd/"
+title = "ZionCore 2nd"
+description = "The second full ZionCore research experience, preserved as a route within the existing ZionCore site."
+version = "1.0.0"
+id = "artifacts/zioncore-2nd"
+router = "path"
+
+[[services]]
+name = "web"
+paths = [ "/zioncore-2nd/" ]
+localPort = 22221
+
+[services.development]
+run = "pnpm --filter @workspace/zioncore-2nd run dev"
+
+[services.production]
+serve = "static"
+publicDir = "artifacts/zioncore-2nd/dist/public"
+
+[services.production.build]
+args = [ "pnpm", "--filter", "@workspace/zioncore-2nd", "run", "build" ]
+
+[services.production.build.env]
+PORT = "22221"
+BASE_PATH = "/zioncore-2nd/"
+NODE_ENV = "production"
+
+[[services.production.rewrites]]
+from = "/*"
+to = "/zioncore-2nd/index.html"
+
+[services.env]
+PORT = "22221"
+BASE_PATH = "/zioncore-2nd/"
